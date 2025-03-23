@@ -1,0 +1,104 @@
+<!-- Sekcja: Helpery -->
+<div th:fragment="helpers">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">🧰 Helpery Thymeleafa (Obiekty wbudowane)</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+        Thymeleaf udostępnia zestaw wbudowanych obiektów, które pomagają manipulować tekstem, listami, datami, liczbami i booleanami bez potrzeby używania zewnętrznej logiki.
+    </p>
+
+    <!-- Lista helperów -->
+    <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded space-y-4">
+        <p class="text-gray-800 font-semibold">📦 Dostępne helpery:</p>
+        <ul class="list-disc list-inside text-sm text-gray-700">
+            <li><code>#strings</code> – operacje na łańcuchach znaków</li>
+            <li><code>#lists</code> – operacje na kolekcjach i tablicach</li>
+            <li><code>#dates</code> – formatowanie dat</li>
+            <li><code>#numbers</code> – formatowanie liczb</li>
+            <li><code>#bools</code> – operacje logiczne</li>
+            <li><code>#objects</code> – null checking</li>
+            <li><code>#maps</code> – operacje na mapach</li>
+        </ul>
+    </div>
+
+    <!-- #strings -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔤 #strings – Operacje na tekstach</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:if="${#strings.isEmpty(name)}"&gt;Brak imienia&lt;/span&gt;
+&lt;span th:text="${#strings.toUpperCase(name)}"&gt;&lt;/span&gt;
+&lt;span th:text="${#strings.contains(email, '@gmail.com')}"&gt;&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- #lists -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📋 #lists – Operacje na listach</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;div th:if="${#lists.isEmpty(users)}"&gt;Brak użytkowników&lt;/div&gt;
+&lt;div th:if="${#lists.contains(users, 'admin')}"&gt;Zawiera admina&lt;/div&gt;
+&lt;span th:text="${#lists.size(users)}"&gt;&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- #dates -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📅 #dates – Formatowanie dat</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:text="${#dates.format(today, 'dd.MM.yyyy')}"&gt;&lt;/span&gt;
+&lt;span th:text="${#dates.day(today)}"&gt;&lt;/span&gt;
+&lt;span th:text="${#dates.monthNameShort(today)}"&gt;&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- #numbers -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔢 #numbers – Formatowanie liczb</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:text="${#numbers.formatDecimal(price, 1, 2)}"&gt;&lt;/span&gt;  &lt;!-- np. 10,05 --&gt;
+&lt;span th:text="${#numbers.formatInteger(quantity, 3)}"&gt;&lt;/span&gt;  &lt;!-- np. 007 --&gt;
+    </pre>
+    </div>
+
+    <!-- #bools -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">✅ #bools – Operacje logiczne</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:if="${#bools.isTrue(active)}"&gt;Aktywny&lt;/span&gt;
+&lt;span th:if="${#bools.isFalse(active)}"&gt;Nieaktywny&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- #objects -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧩 #objects – Obsługa nulli</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:if="${#objects.isEmpty(user)}"&gt;Brak użytkownika&lt;/span&gt;
+&lt;span th:if="${#objects.nonNull(user)}"&gt;Jest użytkownik&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- #maps -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🗺️ #maps – Praca z mapami</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;span th:if="${#maps.containsKey(settings, 'lang')}"&gt;Zawiera język&lt;/span&gt;
+&lt;span th:text="${#maps.entries(settings)}"&gt;&lt;/span&gt;
+    </pre>
+    </div>
+
+    <!-- Bonus: użycie helperów w pętli -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔁 Przykład: helpery w pętli</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;ul th:with="users=${{'jan','admin','kamil'}}"&gt;
+  &lt;li th:each="u : ${users}"
+      th:if="${#strings.contains(u, 'a')}"
+      th:text="${#strings.capitalize(u)}"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+    </pre>
+    </div>
+
+</div>

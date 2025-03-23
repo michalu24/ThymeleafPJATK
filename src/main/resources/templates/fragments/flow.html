@@ -1,0 +1,120 @@
+<!-- Sekcja: Sterowanie przepływem -->
+<div th:fragment="flow">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">🧠 Sterowanie przepływem w Thymeleaf</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+        Thymeleaf oferuje kilka atrybutów umożliwiających warunkowe wyświetlanie lub ukrywanie elementów,
+        w zależności od wartości danych z backendu. Poniżej znajdziesz przykłady prostych i zaawansowanych zastosowań.
+    </p>
+
+    <!-- Podstawowe warunki -->
+    <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded space-y-2">
+        <p class="text-gray-800 font-semibold">✅ Atrybuty warunkowe:</p>
+        <ul class="list-disc list-inside text-gray-700 text-sm">
+            <li><code class="font-mono">th:if</code> – wyświetla element, jeśli warunek jest <code>true</code></li>
+            <li><code class="font-mono">th:unless</code> – odwrotność <code>th:if</code></li>
+            <li><code class="font-mono">th:switch</code> + <code>th:case</code> – selektor warunkowy, alternatywa dla `if-else if-else`</li>
+        </ul>
+    </div>
+
+    <!-- Przykład: th:if / th:unless -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📌 Przykład: th:if + th:unless</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;p th:if="${user.active}" class="text-green-600"&gt;Konto jest aktywne&lt;/p&gt;
+  &lt;p th:unless="${user.active}" class="text-red-600"&gt;Konto nieaktywne&lt;/p&gt;
+        </pre>
+    </div>
+
+    <!-- Przykład: th:switch -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔀 Przykład: th:switch / th:case</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:switch="${user.role}"&gt;
+    &lt;p th:case="'ADMIN'"&gt;Panel administracyjny&lt;/p&gt;
+    &lt;p th:case="'USER'"&gt;Witaj użytkowniku&lt;/p&gt;
+    &lt;p th:case="*"&gt;Nieznana rola&lt;/p&gt;
+  &lt;/div&gt;
+        </pre>
+    </div>
+
+    <!-- Zagnieżdżenie w pętli -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔁 th:if w th:each (zagnieżdżona logika)</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;ul&gt;
+    &lt;li th:each="user : ${users}"&gt;
+      &lt;p th:text="${user.name}"&gt;&lt;/p&gt;
+      &lt;span th:if="${user.active}" class="text-green-500"&gt;Aktywny&lt;/span&gt;
+      &lt;span th:unless="${user.active}" class="text-red-500"&gt;Nieaktywny&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+        </pre>
+    </div>
+
+    <!-- Dynamiczne klasy CSS -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🎨 Dynamiczne klasy CSS zależne od warunku</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:classappend="${user.active} ? 'bg-green-100' : 'bg-red-100'"&gt;
+    &lt;p th:text="${user.name}"&gt;Jan&lt;/p&gt;
+  &lt;/div&gt;
+        </pre>
+    </div>
+
+    <!-- Wbudowane obiekty pomocnicze -->
+    <div class="bg-gray-50 border-l-4 border-green-500 p-4 rounded space-y-2 mt-6">
+        <p class="text-gray-800 font-semibold">🧰 Obiekty pomocnicze Thymeleafa:</p>
+        <ul class="list-disc list-inside text-gray-700 text-sm">
+            <li><code>#bools.isTrue(var)</code> / <code>#bools.isFalse(var)</code></li>
+            <li><code>#lists.isEmpty(list)</code> / <code>#lists.size(list)</code></li>
+            <li><code>#strings.isEmpty(str)</code> / <code>#strings.contains(str, 'abc')</code></li>
+        </ul>
+    </div>
+
+    <!-- Przykład z #lists -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📎 Przykład z #lists:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:if="${#lists.isEmpty(users)}"&gt;
+    Brak użytkowników do wyświetlenia.
+  &lt;/div&gt;
+
+  &lt;div th:if="${#lists.size(users) &gt; 5}"&gt;
+    Jest więcej niż 5 użytkowników.
+  &lt;/div&gt;
+        </pre>
+    </div>
+
+    <!-- Przykład z #strings -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧵 Przykład z #strings:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;p th:if="${#strings.contains(user.email, '@gmail.com')}"&gt;
+    Gmailowy użytkownik
+  &lt;/p&gt;
+        </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/flow")
+  public String showFlow(Model model) {
+      List&lt;User&gt; users = List.of(
+          new User("Jan", "jan@gmail.com", "ADMIN", true),
+          new User("Anna", "anna@example.com", "USER", false),
+          new User("Kamil", "kamil@gmail.com", "USER", true)
+      );
+      model.addAttribute("users", users);
+      model.addAttribute("user", users.get(0)); // przykładowy user
+      return "flow";
+  }
+        </pre>
+    </div>
+
+</div>

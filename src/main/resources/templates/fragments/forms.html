@@ -1,0 +1,130 @@
+<!-- Sekcja: Formularze i binding -->
+<div th:fragment="forms">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">📝 Formularze i Binding w Thymeleaf</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+        Thymeleaf integruje się z Spring MVC, umożliwiając automatyczne wiązanie danych formularzy z obiektami Java.
+        Dzięki atrybutom takim jak <code class="font-mono bg-gray-200 px-1 rounded text-sm">th:object</code> i <code>th:field</code>
+        możemy tworzyć czytelne, walidowalne i dynamiczne formularze.
+    </p>
+
+    <!-- Główne atrybuty -->
+    <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded space-y-2">
+        <p class="text-gray-800 font-semibold">✅ Główne atrybuty formularzy:</p>
+        <ul class="list-disc list-inside text-gray-700 text-sm">
+            <li><code>th:object</code> – wiąże formularz z obiektem Java (np. <code>User</code>)</li>
+            <li><code>th:field="*{...}"</code> – automatycznie ustawia <code>name</code>, <code>id</code>, <code>value</code></li>
+            <li><code>th:errors</code> – wyświetla błędy walidacji</li>
+            <li><code>th:action</code> – adres do którego zostanie wysłany formularz</li>
+            <li><code>th:method</code> – metoda HTTP (np. <code>post</code>)</li>
+        </ul>
+    </div>
+
+    <!-- Przykład formularza rejestracji -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧾 Przykład: Formularz rejestracji</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;form th:action="@{/register}" th:object="${user}" method="post" class="space-y-4"&gt;
+
+  &lt;div&gt;
+    &lt;label for="name" class="block font-semibold"&gt;Imię&lt;/label&gt;
+    &lt;input type="text" th:field="*{name}" class="w-full border rounded px-2 py-1" /&gt;
+    &lt;div th:if="${#fields.hasErrors('name')}"
+         th:errors="*{name}" class="text-red-500 text-sm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="email" class="block font-semibold"&gt;Email&lt;/label&gt;
+    &lt;input type="email" th:field="*{email}" class="w-full border rounded px-2 py-1" /&gt;
+    &lt;div th:if="${#fields.hasErrors('email')}"
+         th:errors="*{email}" class="text-red-500 text-sm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="password" class="block font-semibold"&gt;Hasło&lt;/label&gt;
+    &lt;input type="password" th:field="*{password}" class="w-full border rounded px-2 py-1" /&gt;
+    &lt;div th:if="${#fields.hasErrors('password')}"
+         th:errors="*{password}" class="text-red-500 text-sm"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"&gt;Zarejestruj się&lt;/button&gt;
+
+&lt;/form&gt;
+    </pre>
+    </div>
+
+    <!-- Obsługa checkboxów / radiobuttonów -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">☑️ Checkboxy i radio</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;label&gt;
+  &lt;input type="checkbox" th:field="*{newsletter}" /&gt; Zapisz mnie na newsletter
+&lt;/label&gt;
+
+&lt;label&gt;
+  &lt;input type="radio" th:field="*{gender}" value="FEMALE" /&gt; Kobieta
+&lt;/label&gt;
+&lt;label&gt;
+  &lt;input type="radio" th:field="*{gender}" value="MALE" /&gt; Mężczyzna
+&lt;/label&gt;
+    </pre>
+    </div>
+
+    <!-- Przycisk resetowania formularza -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔄 Resetowanie formularza</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;button type="reset" class="text-sm text-gray-600 hover:underline"&gt;Wyczyść pola&lt;/button&gt;
+    </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧩 Fragment kontrolera Spring Boot</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+@GetMapping("/register")
+public String showForm(Model model) {
+    model.addAttribute("user", new User());
+    return "register";
+}
+
+@PostMapping("/register")
+public String processForm(@Valid @ModelAttribute("user") User user,
+                          BindingResult result) {
+    if (result.hasErrors()) {
+        return "register";
+    }
+    // Zapisz użytkownika...
+    return "redirect:/success";
+}
+    </pre>
+    </div>
+
+    <!-- Klasa User -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📦 Przykładowa klasa User z walidacją</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+public class User {
+
+  @NotBlank
+  private String name;
+
+  @Email
+  @NotBlank
+  private String email;
+
+  @Size(min = 6)
+  private String password;
+
+  private boolean newsletter;
+  private String gender;
+
+  // Gettery i settery
+}
+    </pre>
+    </div>
+
+</div>

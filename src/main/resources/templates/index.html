@@ -52,6 +52,15 @@
             <span>Składnia podstawowa</span>
         </a>
 
+        <a th:href="@{/attributes}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Atrybuty atrybutów</span>
+        </a>
+
         <a th:href="@{/variableexp}"
            class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
@@ -89,12 +98,57 @@
         </a>
 
         <a th:href="@{/fragexp}"
-           class="flex items-center space-x-3 bg-yellow-600 hover:bg-yellow-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
             </svg>
             <span>Fragment expressions</span>
+        </a>
+
+        <a th:href="@{/flow}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Sterowanie przepływem</span>
+        </a>
+
+        <a th:href="@{/loops}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Pętle</span>
+        </a>
+
+        <a th:href="@{/forms}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Formularze i binding</span>
+        </a>
+
+        <a th:href="@{/errors}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Obsługa błędów i walidacja</span>
+        </a>
+
+        <a th:href="@{/helpers}"
+           class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Helpery</span>
         </a>
 
         <a href="#"
@@ -118,6 +172,12 @@
             <div th:case="'messageexp'" th:insert="fragments/messageexp :: messageexp"></div>
             <div th:case="'linkexp'" th:insert="fragments/linkexp :: linkexp"></div>
             <div th:case="'fragexp'" th:insert="fragments/fragexp :: fragexp"></div>
+            <div th:case="'attributes'" th:insert="fragments/attributes :: attributes"></div>
+            <div th:case="'loops'" th:insert="fragments/loops :: loops"></div>
+            <div th:case="'flow'" th:insert="fragments/flow :: flow"></div>
+            <div th:case="'forms'" th:insert="fragments/forms :: forms"></div>
+            <div th:case="'errors'" th:insert="fragments/errors :: errors"></div>
+            <div th:case="'helpers'" th:insert="fragments/helpers :: helpers"></div>
             <div th:case="*">Unknown type</div>
         </div>
     </div>

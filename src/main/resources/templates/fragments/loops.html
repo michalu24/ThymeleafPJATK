@@ -1,0 +1,99 @@
+<!-- Sekcja: Pętle -->
+<div th:fragment="loops">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">🔁 Pętle w Thymeleaf</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+        Atrybut <code class="bg-gray-200 px-1 rounded text-sm font-mono">th:each</code> umożliwia iterację po kolekcjach, tablicach i mapach.
+        Można też uzyskać dostęp do statusu pętli (indeksy, parzystość, pierwszy/ostatni element).
+        Poniżej znajdują się przykłady z danymi osadzonymi lokalnie, bez potrzeby backendu.
+    </p>
+
+    <!-- Przykład: Lista imion -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📌 Przykład: Lista imion</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;ul th:with="names=${{'Jan','Anna','Kamil'}}"&gt;
+    &lt;li th:each="name : ${names}" th:text="${name}"&gt;Imię&lt;/li&gt;
+  &lt;/ul&gt;
+    </pre>
+    </div>
+
+    <!-- Przykład: Status pętli -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🔢 Przykład: Indeksy i parzystość (status pętli)</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;ul th:with="names=${{'Jan','Anna','Kamil'}}"&gt;
+    &lt;li th:each="name, stat : ${names}"
+        th:text="'#' + ${stat.count} + ': ' + ${name}"
+        th:classappend="${stat.odd} ? 'bg-white' : 'bg-gray-100'"&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+    </pre>
+    </div>
+
+    <!-- Przykład: Tabela użytkowników -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📊 Przykład: Tabela użytkowników (statyczna)</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:with="users=${{
+    {'name':'Jan', 'email':'jan@example.com'},
+    {'name':'Anna', 'email':'anna@example.com'}
+  }}"&gt;
+
+    &lt;table class="w-full table-auto border"&gt;
+      &lt;thead&gt;
+        &lt;tr class="bg-gray-200"&gt;
+          &lt;th&gt;Imię&lt;/th&gt;
+          &lt;th&gt;Email&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr th:each="u : ${users}"&gt;
+          &lt;td th:text="${u.name}"&gt;&lt;/td&gt;
+          &lt;td th:text="${u.email}"&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+  &lt;/div&gt;
+    </pre>
+    </div>
+
+    <!-- Przykład: Iteracja po mapie -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🗺️ Przykład: Iteracja po mapie</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;ul th:with="config=${{'theme':'dark', 'lang':'pl'}}"&gt;
+    &lt;li th:each="entry : ${config}"&gt;
+      &lt;span th:text="${entry.key}"&gt;&lt;/span&gt;: &lt;span th:text="${entry.value}"&gt;&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+    </pre>
+    </div>
+
+    <!-- Przykład: Zagnieżdżona pętla -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🪆 Przykład: Zagnieżdżona pętla</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:with="users=${{
+    {'name':'Jan','roles':{'ADMIN','MOD'}},
+    {'name':'Anna','roles':{'USER'}}
+  }}"&gt;
+
+    &lt;ul&gt;
+      &lt;li th:each="u : ${users}"&gt;
+        &lt;p th:text="${u.name}" class="font-bold"&gt;&lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li th:each="role : ${u.roles}" th:text="${role}" /&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+  &lt;/div&gt;
+    </pre>
+    </div>
+
+</div>

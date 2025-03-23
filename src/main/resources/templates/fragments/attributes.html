@@ -1,0 +1,110 @@
+<!-- Sekcja: Atrybuty Thymeleafa -->
+<div th:fragment="attributes">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">🔧 Atrybuty Thymeleafa (Attribute Processors)</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed">
+        Thymeleaf używa specjalnych atrybutów HTML z prefiksem <code class="font-mono bg-gray-200 px-1 rounded text-sm">th:</code>,
+        które pozwalają manipulować zawartością, logiką oraz strukturą dokumentu. Są to tzw. <strong>attribute processors</strong>.
+    </p>
+
+    <!-- Podział na grupy -->
+    <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded space-y-4">
+
+        <!-- Grupa: Tekst i zawartość -->
+        <div>
+            <p class="text-gray-800 font-semibold">📄 Treść i tekst:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:text</code> – zamienia zawartość tagu</li>
+                <li><code class="font-mono text-sm">th:utext</code> – pozwala na HTML (niebezpieczne!)</li>
+                <li><code class="font-mono text-sm">th:value</code> – ustawia wartość inputa</li>
+                <li><code class="font-mono text-sm">th:href</code> / <code>th:src</code> – dynamiczne linki i obrazki</li>
+            </ul>
+        </div>
+
+        <!-- Grupa: Logika -->
+        <div>
+            <p class="text-gray-800 font-semibold">🧠 Logika warunkowa:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:if</code> – renderuje element, jeśli warunek jest spełniony</li>
+                <li><code class="font-mono text-sm">th:unless</code> – odwrotność <code>th:if</code></li>
+                <li><code class="font-mono text-sm">th:switch</code> / <code>th:case</code> – struktura warunkowa</li>
+            </ul>
+        </div>
+
+        <!-- Grupa: Iteracje -->
+        <div>
+            <p class="text-gray-800 font-semibold">🔁 Pętle i kolekcje:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:each</code> – iteracja po kolekcji</li>
+                <li><code class="font-mono text-sm">th:each="item, iterStat : ${list}"</code> – dostęp do indeksu i metadanych</li>
+            </ul>
+        </div>
+
+        <!-- Grupa: Formularze -->
+        <div>
+            <p class="text-gray-800 font-semibold">📝 Formularze:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:object</code> – wiąże formularz z obiektem</li>
+                <li><code class="font-mono text-sm">th:field</code> – generuje `name`, `id` i `value` automatycznie</li>
+                <li><code class="font-mono text-sm">th:errors</code> – pokazuje błędy dla pola</li>
+            </ul>
+        </div>
+
+        <!-- Grupa: Atrybuty -->
+        <div>
+            <p class="text-gray-800 font-semibold">⚙️ Dynamiczne atrybuty:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:attr</code> – przypisuje jeden lub wiele atrybutów</li>
+                <li><code class="font-mono text-sm">th:attrappend</code> / <code>th:attrprepend</code> – dodaje do istniejących</li>
+                <li><code class="font-mono text-sm">th:classappend</code> – dodaje klasę do istniejących klas CSS</li>
+            </ul>
+        </div>
+
+        <!-- Grupa: Fragmenty -->
+        <div>
+            <p class="text-gray-800 font-semibold">🧩 Fragmenty:</p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><code class="font-mono text-sm">th:insert</code> / <code>th:replace</code> – wstawianie fragmentów</li>
+                <li><code class="font-mono text-sm">th:include</code> – (rzadziej używane)</li>
+                <li><code class="font-mono text-sm">th:fragment</code> – definiuje fragment do osadzenia</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Przykład kodu Thymeleaf -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-6">🧪 Przykład użycia wielu atrybutów:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:if="${user != null}" th:classappend="${user.active} ? 'bg-green-100' : 'bg-red-100'"&gt;
+    &lt;p th:text="'Witaj, ' + ${user.name}"&gt;Witaj&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li th:each="item : ${user.roles}" th:text="${item}"&gt;Rola&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;form th:action="@{/update}" th:object="${user}" method="post"&gt;
+      &lt;input type="text" th:field="*{email}" /&gt;
+      &lt;span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"&gt;&lt;/span&gt;
+      &lt;button type="submit"&gt;Zapisz&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+        </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/profile")
+  public String showProfile(Model model) {
+      User user = new User("Anna", "anna@example.com", List.of("ADMIN", "USER"), true);
+      model.addAttribute("user", user);
+      return "profile";
+  }
+        </pre>
+    </div>
+
+</div>

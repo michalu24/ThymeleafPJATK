@@ -1,0 +1,104 @@
+<!-- Sekcja: Obsługa błędów i walidacja -->
+<div th:fragment="errors">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">⚠️ Obsługa błędów i walidacja w Thymeleaf</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed mb-4">
+        Dzięki integracji Thymeleaf z Spring Boot możesz wyświetlać komunikaty walidacyjne przy polach formularza,
+        a także obsługiwać błędy globalne. Wszystko dzieje się automatycznie z użyciem <code class="font-mono">BindingResult</code>
+        oraz atrybutów <code>th:errors</code>, <code>th:if</code> i <code>#fields</code>.
+    </p>
+
+    <!-- Atrybuty i funkcje -->
+    <div class="bg-gray-50 border-l-4 border-red-400 p-4 rounded space-y-2">
+        <p class="text-gray-800 font-semibold">✅ Narzędzia obsługi błędów:</p>
+        <ul class="list-disc list-inside text-sm text-gray-700">
+            <li><code>th:errors="*{field}"</code> – wypisuje błędy dla konkretnego pola</li>
+            <li><code>th:if="${#fields.hasErrors('field')}"</code> – sprawdza, czy pole zawiera błędy</li>
+            <li><code>th:each</code> na <code>#fields.errors('field')</code> – pętla po wszystkich błędach</li>
+            <li><code>#fields.hasGlobalErrors()</code> / <code>#fields.globalErrors()</code> – błędy globalne</li>
+        </ul>
+    </div>
+
+    <!-- Przykład z błędami pól -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧪 Przykład: Walidacja pól</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;form th:action="@{/register}" th:object="${user}" method="post"&gt;
+
+  &lt;div&gt;
+    &lt;label&gt;Imię&lt;/label&gt;
+    &lt;input type="text" th:field="*{name}" class="border px-2 py-1 w-full"/&gt;
+    &lt;p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-red-500 text-sm"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label&gt;Email&lt;/label&gt;
+    &lt;input type="email" th:field="*{email}" class="border px-2 py-1 w-full"/&gt;
+    &lt;p th:if="${#fields.hasErrors('email')}" th:each="err : ${#fields.errors('email')}"
+        th:text="${err}" class="text-red-500 text-sm"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded mt-4"&gt;Wyślij&lt;/button&gt;
+
+&lt;/form&gt;
+    </pre>
+    </div>
+
+    <!-- Błędy globalne -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🌍 Przykład: Błąd globalny (np. login niedozwolony)</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+&lt;div th:if="${#fields.hasGlobalErrors()}" class="bg-red-100 text-red-800 p-2 rounded mb-4"&gt;
+  &lt;ul&gt;
+    &lt;li th:each="err : ${#fields.globalErrors()}" th:text="${err}" /&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+    </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">🧩 Fragment kontrolera Spring Boot</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+@PostMapping("/register")
+public String registerUser(@Valid @ModelAttribute("user") User user,
+                           BindingResult result) {
+    if (!user.getEmail().endsWith("@example.com")) {
+        result.rejectValue("email", "error.user", "Email musi pochodzić z example.com");
+    }
+
+    if ("admin".equalsIgnoreCase(user.getName())) {
+        result.reject("globalError", "Nazwa 'admin' jest zarezerwowana.");
+    }
+
+    if (result.hasErrors()) {
+        return "register";
+    }
+
+    return "redirect:/success";
+}
+    </pre>
+    </div>
+
+    <!-- Klasa User -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">📦 Przykładowa klasa User z walidacją</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+public class User {
+
+  @NotBlank(message = "Imię nie może być puste")
+  private String name;
+
+  @NotBlank(message = "Email jest wymagany")
+  @Email(message = "Nieprawidłowy format email")
+  private String email;
+
+  // Gettery i settery...
+}
+    </pre>
+    </div>
+
+</div>
