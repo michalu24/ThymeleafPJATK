@@ -1,0 +1,65 @@
+<!-- Sekcja: Variable Expressions -->
+<div th:fragment="variableexp">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">${...} – Variable Expressions</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed">
+        Wyrażenia <code class="bg-gray-200 px-1 rounded text-sm font-mono">${...}</code> pozwalają na odwoływanie się do
+        danych przekazywanych z kontrolera Spring Boot do widoku. Są najczęściej wykorzystywane do wyświetlania tekstu,
+        wartości obiektów, a także operacji logicznych lub iteracji.
+    </p>
+
+    <!-- Możliwości -->
+    <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded space-y-2">
+        <p class="text-gray-800"><strong>Przykładowe użycia:</strong></p>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li><code class="font-mono text-sm">${user.name}</code> – dostęp do pola obiektu</li>
+            <li><code class="font-mono text-sm">${user.active ? 'Aktywny' : 'Nieaktywny'}</code> – operator warunkowy
+            </li>
+            <li><code class="font-mono text-sm">${#lists.size(users)}</code> – wywołanie funkcji pomocniczej</li>
+            <li><code class="font-mono text-sm">${session.user}</code> – dostęp do atrybutów sesji</li>
+            <li><code class="font-mono text-sm">${param.q}</code> – dostęp do parametrów zapytania</li>
+        </ul>
+    </div>
+
+    <!-- Przykład kodu Thymeleaf -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 Przykład szablonu HTML:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;!DOCTYPE html&gt;
+  &lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Użytkownik&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  
+    &lt;h1 th:text="'Witaj, ' + ${user.name}"&gt;Witaj, Użytkowniku&lt;/h1&gt;
+  
+    &lt;p&gt;Status: 
+      &lt;span th:text="${user.active ? 'Aktywny' : 'Nieaktywny'}"&gt;...&lt;/span&gt;
+    &lt;/p&gt;
+  
+    &lt;p th:if="${user.age &gt;= 18}"&gt;Użytkownik jest pełnoletni.&lt;/p&gt;
+  
+  &lt;/body&gt;
+  &lt;/html&gt;
+      </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/user")
+  public String getUserPage(Model model) {
+      User user = new User("Jan", 25, true);
+      model.addAttribute("user", user);
+      return "user";
+  }
+      </pre>
+    </div>
+
+</div>

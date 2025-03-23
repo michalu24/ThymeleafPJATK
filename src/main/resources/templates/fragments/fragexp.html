@@ -1,0 +1,99 @@
+<!-- Sekcja: Fragment Expressions -->
+<div th:fragment="fragexp">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">~{...} – Fragment Expressions</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed">
+        Wyrażenia <code class="bg-gray-200 px-1 rounded text-sm font-mono">~{...}</code> służą do wstawiania lub
+        osadzania fragmentów innych szablonów HTML.
+        Umożliwiają ponowne wykorzystanie widoków, dzielenie strony na nagłówki, stopki, panele boczne czy komponenty
+        formularzy.
+        Fragmenty mogą być ładowane za pomocą <code class="font-mono text-sm">th:insert</code>,
+        <code>th:replace</code> lub <code>th:include</code>.
+    </p>
+
+    <!-- Możliwości -->
+    <div class="bg-gray-50 border-l-4 border-purple-400 p-4 rounded space-y-2">
+        <p class="text-gray-800"><strong>Typowe zastosowania:</strong></p>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li><code class="font-mono text-sm">th:insert="~{fragments/header :: nav}"</code> – wstawienie nagłówka</li>
+            <li><code class="font-mono text-sm">th:replace="~{fragments/footer :: copy}"</code> – pełne zastąpienie
+                elementu
+            </li>
+            <li><code class="font-mono text-sm">th:include="~{fragments/info :: alert(type='info')}"</code> – wstawienie
+                fragmentu z parametrami
+            </li>
+        </ul>
+    </div>
+
+    <!-- Przykład kodu Thymeleaf -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 Przykład użycia fragmentu:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;!DOCTYPE html&gt;
+  &lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Strona z fragmentem&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;div th:replace="~{fragments/header :: nav}"&gt;&lt;/div&gt;
+
+    &lt;main&gt;
+      &lt;h1&gt;Treść strony głównej&lt;/h1&gt;
+    &lt;/main&gt;
+
+    &lt;div th:replace="~{fragments/footer :: copy}"&gt;&lt;/div&gt;
+
+  &lt;/body&gt;
+  &lt;/html&gt;
+        </pre>
+    </div>
+
+    <!-- Przykład: plik fragments/header.html -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">📁 Fragment: <code>fragments/header.html</code></h3>
+        <pre class="bg-gray-900 text-yellow-200 text-sm rounded p-4 overflow-auto">
+  &lt;!DOCTYPE html&gt;
+  &lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+  &lt;body&gt;
+
+    &lt;div th:fragment="nav"&gt;
+        &lt;nav class="bg-blue-500 text-white p-4"&gt;
+            &lt;a href="/" class="mr-4 hover:underline"&gt;Start&lt;/a&gt;
+            &lt;a href="/about" class="hover:underline"&gt;O nas&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+
+  &lt;/body&gt;
+  &lt;/html&gt;
+        </pre>
+    </div>
+
+    <!-- Przykład: plik fragments/footer.html -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">📁 Fragment: <code>fragments/footer.html</code></h3>
+        <pre class="bg-gray-900 text-yellow-200 text-sm rounded p-4 overflow-auto">
+  &lt;div th:fragment="copy"&gt;
+      &lt;footer class="bg-blue-600 text-white text-center py-4"&gt;
+          &copy; 2025 Thymeleaf Aplikacja. Wszelkie prawa zastrzeżone.
+      &lt;/footer&gt;
+  &lt;/div&gt;
+        </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/")
+  public String showHomePage() {
+      return "index"; // szablon główny, który ładuje fragmenty
+  }
+        </pre>
+    </div>
+
+</div>

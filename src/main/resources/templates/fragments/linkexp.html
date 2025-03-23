@@ -1,0 +1,86 @@
+<!-- Sekcja: Link Expressions -->
+<div th:fragment="linkexp">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">@{...} – Link Expressions</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed">
+        Wyrażenia <code class="bg-gray-200 px-1 rounded text-sm font-mono">@{...}</code> służą do generowania
+        dynamicznych adresów URL
+        w aplikacjach webowych. Thymeleaf dba o poprawne kodowanie ścieżek i parametrów, integrując się z routingiem
+        Springa.
+    </p>
+
+    <!-- Możliwości -->
+    <div class="bg-gray-50 border-l-4 border-indigo-400 p-4 rounded space-y-2">
+        <p class="text-gray-800"><strong>Typowe zastosowania:</strong></p>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li><code class="font-mono text-sm">th:href="@{/users}"</code> – prosty link bez parametrów</li>
+            <li><code class="font-mono text-sm">th:href="@{/users/{id}(id=${user.id})}"</code> – link z dynamicznym
+                parametrem
+            </li>
+            <li><code class="font-mono text-sm">th:action="@{/register}"</code> – akcja formularza</li>
+            <li><code class="font-mono text-sm">th:src="@{/images/logo.png}"</code> – ścieżka do zasobu statycznego</li>
+        </ul>
+    </div>
+
+    <!-- Przykład kodu Thymeleaf -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 Przykład szablonu HTML:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;!DOCTYPE html&gt;
+  &lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Lista użytkowników&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;a th:href="@{/users}"&gt;Wszyscy użytkownicy&lt;/a&gt;
+
+    &lt;ul&gt;
+      &lt;li th:each="user : ${users}"&gt;
+        &lt;a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.name}"&gt;Imię użytkownika&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;form th:action="@{/register}" method="post"&gt;
+      &lt;input type="text" name="username" /&gt;
+      &lt;button type="submit"&gt;Zarejestruj&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;img th:src="@{/images/avatar.png}" alt="Avatar" /&gt;
+
+  &lt;/body&gt;
+  &lt;/html&gt;
+        </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/users")
+  public String listUsers(Model model) {
+      List&lt;User&gt; users = userService.getAllUsers();
+      model.addAttribute("users", users);
+      return "userList";
+  }
+
+  @GetMapping("/users/{id}")
+  public String getUser(@PathVariable Long id, Model model) {
+      User user = userService.getUserById(id);
+      model.addAttribute("user", user);
+      return "userDetails";
+  }
+
+  @PostMapping("/register")
+  public String registerUser(@RequestParam String username) {
+      // logika rejestracji
+      return "redirect:/users";
+  }
+        </pre>
+    </div>
+
+</div>

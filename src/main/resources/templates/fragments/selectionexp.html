@@ -1,0 +1,76 @@
+<!-- Sekcja: Selection Expressions -->
+<div th:fragment="selectionexp">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">*{...} – Selection Expressions</h2>
+
+    <!-- Opis -->
+    <p class="text-gray-700 leading-relaxed">
+        Wyrażenia <code class="bg-gray-200 px-1 rounded text-sm font-mono">*{...}</code> są używane głównie w
+        formularzach, gdzie określony jest obiekt formularza za pomocą
+        <code class="font-mono text-sm">th:object</code>. Pozwalają na odwołanie się do pól tego obiektu bez
+        konieczności powtarzania jego nazwy.
+    </p>
+
+    <!-- Możliwości -->
+    <div class="bg-gray-50 border-l-4 border-green-400 p-4 rounded space-y-2">
+        <p class="text-gray-800"><strong>Typowe zastosowania:</strong></p>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li><code class="font-mono text-sm">*{name}</code> – odpowiada <code
+                    class="font-mono text-sm">${user.name}</code></li>
+            <li><code class="font-mono text-sm">*{email}</code> – wygodne przypisanie do pól formularza</li>
+            <li><code class="font-mono text-sm">*{age &gt;= 18}</code> – możliwe są także proste wyrażenia logiczne</li>
+        </ul>
+    </div>
+
+    <!-- Przykład kodu Thymeleaf -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧪 Przykład szablonu formularza:</h3>
+        <pre class="bg-gray-900 text-green-200 text-sm rounded p-4 overflow-auto">
+  &lt;!DOCTYPE html&gt;
+  &lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Formularz użytkownika&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;form th:action="@{/user}" th:object="${user}" method="post"&gt;
+
+      &lt;label&gt;Imię:&lt;/label&gt;
+      &lt;input type="text" th:field="*{name}" /&gt;
+
+      &lt;br/&gt;
+
+      &lt;label&gt;Email:&lt;/label&gt;
+      &lt;input type="email" th:field="*{email}" /&gt;
+
+      &lt;br/&gt;
+
+      &lt;button type="submit"&gt;Zapisz&lt;/button&gt;
+    &lt;/form&gt;
+
+  &lt;/body&gt;
+  &lt;/html&gt;
+        </pre>
+    </div>
+
+    <!-- Backend -->
+    <div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">🧩 Fragment kontrolera Spring Boot:</h3>
+        <pre class="bg-gray-900 text-blue-100 text-sm rounded p-4 overflow-auto">
+  @GetMapping("/user")
+  public String showForm(Model model) {
+      model.addAttribute("user", new User());
+      return "userForm";
+  }
+
+  @PostMapping("/user")
+  public String submitForm(@ModelAttribute User user) {
+      // logika zapisu danych
+      return "redirect:/success";
+  }
+        </pre>
+    </div>
+
+</div>

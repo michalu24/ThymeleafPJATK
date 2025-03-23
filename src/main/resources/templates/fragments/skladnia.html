@@ -1,0 +1,71 @@
+<!-- Sekcja: Składnia Thymeleaf -->
+<div th:fragment="skladnia">
+
+    <!-- Nagłówek -->
+    <h2 class="text-2xl font-bold text-gray-800 border-b pb-2">Podstawowa składnia Thymeleaf</h2>
+
+    <!-- Wprowadzenie -->
+    <p class="text-gray-700 leading-relaxed">
+        Thymeleaf oferuje zestaw specjalnych wyrażeń, które pozwalają dynamicznie operować na danych w HTML. Poniżej
+        znajdziesz opis najważniejszych z nich.
+    </p>
+
+    <!-- Wyrażenia składni -->
+    <div class="space-y-4">
+
+        <!-- ${...} -->
+        <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded">
+            <p class="text-gray-800">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm font-mono">${...}</code> – <strong>Variable
+                expressions</strong><br>
+                Służy do odczytu danych z modelu (np. `Model` lub `ModelMap` w Spring).<br>
+                <span class="text-gray-600">Przykład: <code
+                        class="bg-white px-1 rounded text-sm">th:text="${user.name}"</code></span>
+            </p>
+        </div>
+
+        <!-- *{...} -->
+        <div class="bg-gray-50 border-l-4 border-green-400 p-4 rounded">
+            <p class="text-gray-800">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm font-mono">*{...}</code> – <strong>Selection
+                expressions</strong><br>
+                Używane wewnątrz formularzy (`th:object`), odwołuje się do właściwości aktualnie wybranego obiektu.<br>
+                <span class="text-gray-600">Przykład: <code
+                        class="bg-white px-1 rounded text-sm">th:field="*{email}"</code></span>
+            </p>
+        </div>
+
+        <!-- #{...} -->
+        <div class="bg-gray-50 border-l-4 border-yellow-400 p-4 rounded">
+            <p class="text-gray-800">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm font-mono">#{...}</code> – <strong>Message
+                expressions</strong><br>
+                Pobiera tekst z plików lokalizacyjnych (`messages.properties`).<br>
+                <span class="text-gray-600">Przykład: <code class="bg-white px-1 rounded text-sm">th:text="#{label.username}"</code></span>
+            </p>
+        </div>
+
+        <!-- @{...} -->
+        <div class="bg-gray-50 border-l-4 border-indigo-400 p-4 rounded">
+            <p class="text-gray-800">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm font-mono">@{...}</code> – <strong>Link (URL)
+                expressions</strong><br>
+                Generuje dynamiczne linki z parametrami.<br>
+                <span class="text-gray-600">Przykład: <code class="bg-white px-1 rounded text-sm">th:href="@{/users/{id}(id=${user.id})}"</code></span>
+            </p>
+        </div>
+
+        <!-- ~{...} -->
+        <div class="bg-gray-50 border-l-4 border-purple-400 p-4 rounded">
+            <p class="text-gray-800">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm font-mono">~{...}</code> – <strong>Fragment
+                expressions</strong><br>
+                Umożliwia wstawianie fragmentów szablonów (np. nagłówek, stopka).<br>
+                <span class="text-gray-600">Przykład: <code class="bg-white px-1 rounded text-sm">th:replace="~{fragments/header :: nav}"</code></span>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+  
