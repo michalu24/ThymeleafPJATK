@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dwa divy i nagłówek</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pattaya&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Górny nagłówek -->
+  <div class="w-screen bg-blue-500 text-white px-6 py-4 flex items-center justify-between shadow-lg">
+    <div class="flex space-x-5">
+      <img th:src="@{images/image.png}" alt="logo" class="w-20 h-20 object-contain" />
+      <div class="content-center">
+        <h1 class="text-2xl font-bold tracking-wide" style="font-family: 'Roboto Condensed', sans-serif;">
+          THYMELEAF PRZYKŁADOWA APLIKACJA
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sekcja główna -->
+  <div class="flex-1 flex w-screen">
+
+    <!-- Lewy panel -->
+    <div class="w-[250px] bg-blue-500 text-white shadow-lg p-4 space-y-4 flex flex-col min-h-screen pb-[64px]">
+
+      <!-- Nawigacja -->
+      <a href="#"
+        class="flex items-center space-x-3 bg-green-600 hover:bg-green-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" />
+        </svg>
+        <span>Strona Główna</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Składnia podstawowa</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Variable expressions</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Selection expressions</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Message expressions</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Link expressions</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-yellow-600 hover:bg-yellow-700 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>Fragment expressions</span>
+      </a>
+
+      <a href="#"
+        class="flex items-center space-x-3 bg-red-500 hover:bg-red-600 transition duration-200 rounded-lg px-4 py-2 shadow">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+        </svg>
+        <span>Wyloguj</span>
+      </a>
+
+    </div>
+
+    <!-- Prawy panel -->
+    <div class="flex-1 bg-white p-6 shadow-lg m-2 rounded overflow-y-auto max-h-[calc(100vh-64px)]">
+      <h1 th:text="${props.name}">PANEL</h1>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-screen bg-blue-600 text-white shadow-inner fixed bottom-0 left-0 right-0 z-10">
+    <div class="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-sm">
+      <!-- Lewa część -->
+      <p class="mb-2 md:mb-0">&copy; 2025 THYMELEAF PRZYKŁADOWA APLIKACJA. Wszelkie prawa zastrzeżone.</p>
+
+      <!-- Prawa część -->
+      <div class="flex space-x-4">
+        <a href="#" class="hover:underline">Polityka prywatności</a>
+        <a href="#" class="hover:underline">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
