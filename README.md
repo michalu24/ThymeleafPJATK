@@ -1,6 +1,8 @@
+![image.png](src/main/resources/static/images/image.png)
+
 # 🌿 THYMELEAF PRZYKŁADOWA APLIKACJA
 
-Aplikacja edukacyjna stworzona w celu nauki i zrozumienia silnika szablonów **Thymeleaf** w środowisku **Spring Boot 3**.  
+Aplikacja edukacyjna stworzona dla studentów PJATK w celu nauki i zrozumienia silnika szablonów **Thymeleaf** w środowisku **Spring Boot 3**.  
 Zawiera praktyczne sekcje, przykłady, kod HTML/Java i dynamiczny interfejs stworzony z użyciem **Tailwind CSS**.
 
 ---
